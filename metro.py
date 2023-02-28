@@ -3,10 +3,19 @@ class Metro:
         self.station_array = station_array
 
     def calc_route(self, start_station_name, finish_station_name):
-        start_station = self.find_station_by_name(start_station_name)
-        if start_station == "STATION NOT FOUND":
-            return f"Station: {start_station_name} not found."
+        # clear all stations' previous parents
+        for station in self.station_array:
+            station.parent = ""
 
+        # input validation
+        start_station = self.find_station_by_name(start_station_name)
+        end_station = self.find_station_by_name(finish_station_name)
+        if start_station == "STATION NOT FOUND":
+            return f"Starting station: {start_station_name} not found."
+        elif finish_station_name == "STATION NOT FOUND":
+            return f"Destination station: {finish_station_name} not found."
+
+        # breadth first search
         queue = [start_station]
         explored = set()
 
@@ -15,6 +24,7 @@ class Metro:
             if current_node in explored:
                 continue
 
+            # if we find the destination station, generate route tracing backwards using station.parent
             if current_node.name.lower().strip() == finish_station_name.lower().strip():
                 return self.generate_route_string_to(current_node)
 
@@ -29,9 +39,13 @@ class Metro:
         r_string = ""
 
         while current_node.parent:
-            if (len(current_node.parent.lines) > 1) and not (bool(set(current_node.lines) & set(current_node.parent.parent.lines))):
-                r_string = f" (transfer to line <{self.find_common_line(current_node.lines, current_node.parent.lines)}>) => {current_node.name}{r_string}"
+            if hasattr(current_node.parent.parent, "lines"):
+                if (len(current_node.parent.lines) > 1) and not (bool(set(current_node.lines) & set(current_node.parent.parent.lines))):
+                    r_string = f" (transfer to line <{self.find_common_line(current_node.lines, current_node.parent.lines)}>) => {current_node.name}{r_string}"
+                else:
+                    r_string = f" => {current_node.name}{r_string}"
             else:
+                print(current_node.name)
                 r_string = f" => {current_node.name}{r_string}"
 
             current_node = current_node.parent

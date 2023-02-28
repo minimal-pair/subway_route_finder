@@ -45,7 +45,7 @@ balderas.neighbors = [cuauhtemoc, juarez, ninos_heroes]
 
 # 3
 juarez.neighbors = [cuauhtemoc]
-ninos_heroes.neighbors = [cuauhtemoc, hospital_general]
+ninos_heroes.neighbors = [hospital_general, balderas]
 hospital_general.neighbors = [ninos_heroes, centro_medico]
 centro_medico.neighbors = [hospital_general, chilpancingo]
 
@@ -62,3 +62,4 @@ test_metro = Metro(station_array)
 
 print(test_metro.calc_route("observatorio", "balderas"))
 print(test_metro.calc_route("observatorio", "hospital general"))
+print(test_metro.calc_route("centro medico", "chapultepec"))
