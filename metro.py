@@ -45,7 +45,6 @@ class Metro:
                 else:
                     r_string = f" => {current_node.name}{r_string}"
             else:
-                print(current_node.name)
                 r_string = f" => {current_node.name}{r_string}"
 
             current_node = current_node.parent
