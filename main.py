@@ -61,5 +61,5 @@ chilpancingo.neighbors = [patriotismo, centro_medico]
 test_metro = Metro(station_array)
 
 print(test_metro.calc_route("observatorio", "balderas"))
-print(test_metro.calc_route("observatorio", "hospital general"))
+print(test_metro.calc_route("san pedro de los pinos", "balderas"))
 print(test_metro.calc_route("centro medico", "chapultepec"))

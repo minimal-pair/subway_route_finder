@@ -56,7 +56,6 @@ class Metro:
         for station in self.station_array:
             if station.name.lower().strip() == name.lower().strip():
                 return station
-        print("STATION NOT FOUND")
         return "STATION NOT FOUND"
 
     @staticmethod
